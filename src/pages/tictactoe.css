@@ -1,0 +1,21 @@
+.game {
+    display: flex;
+    align-items: center;
+    gap: 150px;
+}
+.game-board {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.board-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.game-info ol {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

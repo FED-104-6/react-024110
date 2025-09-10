@@ -1,0 +1,29 @@
+#game-ing, #game-over {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.question {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+.question img {
+    width: 150px;
+}
+.input-wrap {
+    display: flex;
+    gap: 20px;
+}
+.score {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#game-ing.close,
+#game-over.close {
+    display: none;
+}
