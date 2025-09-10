@@ -7,7 +7,8 @@ export default function Header() {
             <nav>
                 <NavLink to="/tic-tac-toe" className={({ isActive }) => (isActive ? "active" : undefined)}>Tic-tac-toe</NavLink>
                 <NavLink to="/material" className={({ isActive }) => (isActive ? "active" : undefined)}>Material</NavLink>
-                <NavLink to="/exercise" className={({ isActive }) => (isActive ? "active" : undefined)}>Exercise</NavLink>
+                <NavLink to="/count" className={({ isActive }) => (isActive ? "active" : undefined)}>Count</NavLink>
+                <NavLink to="/response" className={({ isActive }) => (isActive ? "active" : undefined)}>Response</NavLink>
             </nav>
         </header>
     )

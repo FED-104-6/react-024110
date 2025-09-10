@@ -2,9 +2,10 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
-import Material from "./pages/material";
-import Tictactoe from "./pages/Tictactoe";
-import Exercise from "./pages/exercise";
+import Tictactoe from "./pages/01_Tictactoe";
+import Material from "./pages/02_material";
+import Count from "./pages/03_count";
+import Response from "./pages/04_response";
 
 function App() {
     return (
@@ -15,7 +16,8 @@ function App() {
                     <Route path="/" element={<Tictactoe />} />
                     <Route path="/tic-tac-toe" element={<Tictactoe />} />
                     <Route path="/material" element={<Material />} />
-                    <Route path="/exercise" element={<Exercise />} />
+                    <Route path="/count" element={<Count />} />
+                    <Route path="/response" element={<Response />} />
                 </Routes>
             </div>
             <Footer />

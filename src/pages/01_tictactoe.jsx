@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Square from '../components/tictactoe/square';
-import './tictactoe.css'
+import './01_tictactoe.css'
 
 function Board({ xIsNext, squares, onPlay }) {
   function handleClick(i) {

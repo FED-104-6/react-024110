@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Question from "../components/material/question";
-import "./material.css";
+import "./02_material.css";
 import Score from "../components/material/score";
 
 export default function Material() {

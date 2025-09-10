@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./exercise.css";
+import "./03_count.css";
 
-export default function Exercise() {
+export default function Count() {
     const [count, setCount] = useState(0);
 
     function handleClick(isPlus) {
