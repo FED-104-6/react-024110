@@ -9,6 +9,7 @@ export default function Header() {
                 <NavLink to="/material" className={({ isActive }) => (isActive ? "active" : undefined)}>Material</NavLink>
                 <NavLink to="/count" className={({ isActive }) => (isActive ? "active" : undefined)}>Count</NavLink>
                 <NavLink to="/response" className={({ isActive }) => (isActive ? "active" : undefined)}>Response</NavLink>
+                <NavLink to="/conditional" className={({ isActive }) => (isActive ? "active" : undefined)}>Conditional</NavLink>
             </nav>
         </header>
     )
