@@ -7,6 +7,7 @@ import Material from "./pages/02_material";
 import Count from "./pages/03_count";
 import Response from "./pages/04_response";
 import Conditional from "./pages/05_contitional_list_state";
+import DIY from "./pages/06_DIY";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/count" element={<Count />} />
                     <Route path="/response" element={<Response />} />
                     <Route path="/conditional" element={<Conditional />} />
+                    <Route path="/diy" element={<DIY />} />
                 </Routes>
             </div>
             <Footer />
