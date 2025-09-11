@@ -1,13 +1,26 @@
 import styled from "@emotion/styled";
 import { Slider, TextField, IconButton, Tooltip, Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function DIY() {
     const [inputName, setInputName] = useState("");
     const [inputAddress, setInputAddress] = useState("");
     const [progress, setProgress] = useState(30);
     const inputRef = useRef(null);
+
+    // Hooks DIY9
+    const [counter, setCounter] = useState(0);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCounter((prevCounter) => prevCounter + 1);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    // Hooks DIY10
+    const [count, setCount] = useState(0);
 
     return (
         <Background>
@@ -41,6 +54,13 @@ export default function DIY() {
                     Edit
                 </Button>
             </Tooltip>
+
+            {/* Hooks DIY 9 */}
+            <p>Second counter: {counter}</p>
+
+            {/* Hooks DIY 10 */}
+            <p>Count: {count}</p>
+            <button onClick={() => setCount(count + 1)}>Increment count</button>
         </Background>
     );
 }
