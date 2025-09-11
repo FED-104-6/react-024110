@@ -1,23 +1,45 @@
 import styled from "@emotion/styled";
 import { Slider, TextField, IconButton, Tooltip, Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function DIY() {
+    const [inputName, setInputName] = useState("");
+    const [inputAddress, setInputAddress] = useState("");
     const [progress, setProgress] = useState(30);
+    const inputRef = useRef(null);
+
     return (
         <Background>
             {/* DIY21 */}
             <SlideBar value={progress} onChange={(e, newValue) => setProgress(newValue)} />
-            <DeleteBtn />
-            <TwoTextFields />
+            <DeleteBtn
+                onClick={() => {
+                    setInputAddress(""), setInputName("");
+                }}
+            />
+            <TwoTextFields
+                inputRef={inputRef}
+                inputName={inputName}
+                inputAddress={inputAddress}
+                setInputName={setInputName}
+                setInputAddress={setInputAddress}
+            />
 
             {/* DIY22 */}
             <Tooltip title="Edit">
                 <IconButton color="warning">
                     <EditIcon />
                 </IconButton>
-                <Button variant="contained" color="warning">Edit</Button>
+                <Button
+                    onClick={() => {
+                        inputRef.current.focus();
+                    }}
+                    variant="contained"
+                    color="warning"
+                >
+                    Edit
+                </Button>
             </Tooltip>
         </Background>
     );
@@ -32,19 +54,34 @@ function SlideBar({ value, onChange }) {
     );
 }
 
-function DeleteBtn() {
+function DeleteBtn({ onClick }) {
     return (
-        <Button variant="contained" color="error">
+        <Button variant="contained" color="error" onClick={onClick}>
             DELETE
         </Button>
     );
 }
 
-function TwoTextFields() {
+function TwoTextFields({ inputRef, inputName, inputAddress, setInputName, setInputAddress }) {
     return (
         <InputWrap>
-            <TextField label="Name" color="primary" variant="outlined"></TextField>
-            <TextField label="Address" color="primary" variant="standard"></TextField>
+            <TextField
+                inputRef={inputRef}
+                label="Name"
+                color="primary"
+                value={inputName}
+                variant="outlined"
+                onChange={(e) => {
+                    setInputName(e.target.value);
+                }}
+            />
+            <TextField
+                label="Address"
+                color="primary"
+                value={inputAddress}
+                variant="standard"
+                onChange={(e) => setInputAddress(e.target.value)}
+            />
         </InputWrap>
     );
 }
