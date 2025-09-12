@@ -1,7 +1,23 @@
 # React application using Vite <img src='public\vite.svg' style="width:30px; height:auto; vertical-align: -15%;">
-Just for practice :) <br>
 
-I'm doing some exercises which help me improve my front-end skills by using the official React site that Drew recommended us on Teams.
+This project is a collection of all the exercises and projects I worked on during class using React (built with Vite).
+It includes small assignments and mini projects such as Tic-Tac-Toe, several DIY exercises, and more.
+
+By browsing through this repository, you can see examples of:
+
+React Router
+
+Props lifting up
+
+Listing and rendering
+
+State management
+
+React Hooks
+
+And other essential React features
+
+The repository also showcases our final project, the Material Mini Project, which is accessible through the UI. While some parts of the UI may not be perfect in terms of UX 😅, the focus for the Material project was on writing clean and functional code rather than styling.
 
 ## 🚀 How to run
 ```bash

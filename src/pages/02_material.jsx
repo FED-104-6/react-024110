@@ -1,29 +1,15 @@
-import { useState } from "react";
-import Question from "../components/material/question";
+import { createContext, useContext, useEffect, useState } from "react";
 import "./02_material.css";
-import Score from "../components/material/score";
+import { Button, Card, CardContent, Typography } from "@mui/material";
+
+const GameContext = createContext();
 
 export default function Material() {
-    // main
-    // maintain
-    // current question
-    // score, high score
-    // whether the game is over
-    // initialize
-    // a list of question, each containing an image and the correct first letter
-    // implement
-    // handle user's input
-    // update the score
-    // moving next question
-
-    // 세 질문 끝나면 game over, final score 보여주기
-    // 각 라운드마다 사진 바꾸고
-    // 경신하면 high score 변경하고
-
-    const [gameIng, setGameIng] = useState(true);
-    const [currentIdx, setCurrentIdx] = useState(0);
-    const [currentScore, setCurrentScore] = useState(0);
-    const [highScore, setHighScore] = useState(0);
+    const [gameIng, setGameIng] = useState(true); // 시작 유무
+    const [currentIdx, setCurrentIdx] = useState(0); // 문제 넘기기
+    const [currentScore, setCurrentScore] = useState(0); // 현재 점수
+    const [highScore, setHighScore] = useState(0); // 최고기록
+    const [correctCnt, setCorrectCnt] = useState(0); // 맞은 문제수
 
     const questions = [
         {
@@ -40,24 +26,29 @@ export default function Material() {
         },
     ];
 
-    const [answer, setAnswer] = useState("");
     const handleChildInput = (value) => {
-        setAnswer(value);
-        const isCorrect = value.toLocaleLowerCase() == questions[currentIdx].name;
+        const isCorrect = value.toLocaleLowerCase() == questions[currentIdx].name[0]; // split('') 안 해도 되네?
+
         if (isCorrect) {
-            const newScore = currentScore + 10;
-            setCurrentScore(newScore);
-            if (currentIdx < 2) {
-                setCurrentIdx(currentIdx + 1);
-            } else {
-                setGameIng(!gameIng);
-            }
-            if (newScore > highScore) {
-                setHighScore(newScore);
-            }
+            alert("딩동댕");
+            // const newScore = currentScore + 10;
+            setCorrectCnt(correctCnt + 1);
+            setCurrentScore(currentScore + 10);
+
+            // useEffect로 localStorage에 저장할 예정
+            // if (newScore > highScore) {
+            //     setHighScore(newScore);
+            // }
         } else {
-            alert("faild. try one more time");
+            alert("땡!");
             setCurrentScore(currentScore - 15);
+        }
+
+        if (currentIdx < questions.length - 1) {
+            // setCurrentIdx(currentIdx + 1);
+            setCurrentIdx((prev) => prev + 1); // prev라는 이전값 가져오기 장치
+        } else {
+            setGameIng(false);
         }
     };
 
@@ -65,23 +56,92 @@ export default function Material() {
         setGameIng(true);
         setCurrentIdx(0);
         setCurrentScore(0);
+        setCorrectCnt(0);
     };
 
+    // useEffect: highScore 관리 (side effect)
+    useEffect(() => {
+        if (currentScore > highScore) {
+            setHighScore(currentScore);
+            localStorage.setItem("highScore", currentScore); // 저장
+        }
+    }, [currentScore, highScore]);
+
     return (
-        <div className="game-material">
-            <div id="game-over" className={gameIng ? "close" : ""}>
-                <h2>🎮 Game Over 🕹️</h2>
-                <div>
-                    <h4>Your score: {currentScore}</h4>
-                    <h4>Your best record: {highScore}</h4>
+        <GameContext.Provider value={{ correctCnt, currentScore, highScore, handleChildInput }}>
+            <div id="game-material">
+                {/* conditional 이렇게 하면 되는군 */}
+                {!gameIng ? (
+                    <Card>
+                        <CardContent id="game-over">
+                            <h2>🎮 Game Over 🕹️</h2>
+                            <div>
+                                <Typography>Correct Number: {correctCnt}/3</Typography>
+                                <Typography>Your score: {currentScore}</Typography>
+                                <Typography>Your best record: {highScore}</Typography>
+                            </div>
+                            <Button variant="contained" onClick={handleRetry}>
+                                Retry
+                            </Button>
+                        </CardContent>
+                    </Card>
+                ) : (
+                    <div id="game-ing">
+                        <Typography variant="h5">With which letter does it start?</Typography>
+                        <Question currentIdx={currentIdx} currentImg={questions[currentIdx].img} />
+                        <Score />
+                    </div>
+                )}
+            </div>
+        </GameContext.Provider>
+    );
+}
+
+// Question Component (props lifting)
+function Question({ currentIdx, currentImg }) {
+    const { handleChildInput } = useContext(GameContext);
+    const [inputValue, setInputValue] = useState("");
+
+    return (
+        <Card>
+            <CardContent className="question">
+                <h3>Question number {currentIdx + 1}</h3>
+                <img src={currentImg} alt={`question-${currentIdx}`} />
+                <div className="input-wrap">
+                    <input type="text" maxLength={1} value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+                    <Button
+                        variant="contained"
+                        onClick={() => {
+                            handleChildInput(inputValue);
+                            setInputValue(""); // reset
+                        }}
+                    >
+                        Play
+                    </Button>
                 </div>
-                <button onClick={handleRetry}>Retry</button>
-            </div>
-            <div id="game-ing" className={gameIng ? "" : "close"}>
-                <h3>With which letter does it start</h3>
-                <Question onSubmitValue={handleChildInput} currentIdx={currentIdx} currentImg={questions[currentIdx].img} />
-                <Score currentScore={currentScore} highScore={highScore} />
-            </div>
-        </div>
+            </CardContent>
+        </Card>
+    );
+}
+
+// Score Component (useContext, listing)
+function Score() {
+    const { correctCnt, currentScore, highScore } = useContext(GameContext);
+
+    const stats = [
+        { label: "Correct Answers", value: correctCnt },
+        { label: "Current Score", value: currentScore },
+        { label: "High Score", value: highScore },
+    ];
+
+    return (
+        <ul className="score">
+            {stats.map((stat, index) => (
+                <li key={stat.label}>
+                    {index === 2 ? "✨" : ""}
+                    {stat.label}: {index === 0 ? `${stat.value}/3` : stat.value}
+                </li>
+            ))}
+        </ul>
     );
 }
