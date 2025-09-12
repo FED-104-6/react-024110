@@ -25,6 +25,7 @@ export default function DIY() {
     return (
         <Background>
             {/* DIY21 */}
+            {/* ⭐ Lifting State Up */}
             <SlideBar value={progress} onChange={(e, newValue) => setProgress(newValue)} />
             <DeleteBtn
                 onClick={() => {

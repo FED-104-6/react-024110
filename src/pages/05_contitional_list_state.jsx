@@ -7,7 +7,8 @@ export default function Conditional() {
     return (
         <div>
             <h3>My Favorite Food List</h3>
-            <button onClick={() => setIsOpened(!isOpened)}>show</button>
+            {/* conditional */}
+            <button onClick={() => setIsOpened(!isOpened)}>{isOpened ? 'close' : 'open'}</button>
             {/* conditional */}
             <FoodList isOpened={isOpened}></FoodList>
         </div>
