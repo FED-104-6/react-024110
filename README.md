@@ -15,12 +15,8 @@ I'm doing some exercises which help me improve my front-end skills by using the 
 ```
 
 ## Exercise 01: Router, Forms, Lifting State Up
-1. **React Router**
-   - Navigation between Home and About pages.
-   --> I did with App.jsx
-2. **Forms**
-   - Controlled input form that updates state on change.
-   --> I did with 07_DIY0911.jsx
-3. **Lifting State Up**
-   - Shared state managed in the parent and displayed across multiple child components.
-   --> I did with almost every jsx page
+- React Router → Implemented in App.jsx for navigation between pages.
+
+- Forms → Built a controlled form inside 07_DIY0911.jsx.
+
+- Lifting State Up → Shared parent state with props across most of the 7 page components.
